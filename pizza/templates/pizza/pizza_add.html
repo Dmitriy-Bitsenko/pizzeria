@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+{% comment %}
+{% csrf_token %}
+<h1>template Django</h1>
+<a href="/pizza/pizza_list/"><h1>List of the best pizzas</h1></a>
+<a href="/pizza/pizza_list/?id=2&name=PASTA"><h1>PASTA</h1></a>
+
+<div>
+    <p>Отправить данные на страницу пицц METHOD GET</p>
+<form action="/pizza/pizza_list/" method="get">
+    {% csrf_token %}
+    <label>ID</label> <input type="number" name="id" id="id" placeholder="поле id"><br>
+    <label>Name</label> <input type="text" name="id" id="name" placeholder="поле name"><br>
+    <input type="submit" value="Отправить данные">
+</form>
+</div>
+
+<div>
+    <p>Отправить данные на страницу пицц METHOD POST</p>
+<form action="/pizza/pizza_list/" method="post">
+    {% csrf_token %}
+    <label>ID</label> <input type="number" name="id" id="id" placeholder="поле id"><br>
+    <label>Name</label> <input type="text" name="id" id="name" placeholder="поле name"><br>
+    <input type="submit" value="Отправить данные">
+</form>
+</div>
+
+{% endcomment %}
+
+<form method="post">
+    {% csrf_token %}
+<table>
+    {{ form}}
+</table>
+    <input type="submit" value="Добавить пиццу">
+</form>
+
+</body>
+</html>

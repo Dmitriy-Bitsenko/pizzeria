@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+{% csrf_token %}
+<h1>List of pizzas</h1>
+
+<a href="/pizza/pizza_add/">Добавить пиццу</a>
+<a href="/pizza/">Назад</a>
+
+<div>
+    {{ name }}
+</div>
+
+
+<p>
+    {{ pizza_list }}
+</p>
+
+<div>
+    {{ pizza_one.name }}
+
+</div>
+
+<div>
+    {% for item in pizza_list %}
+        <p>
+        Наименование: {{ item.name }}<br>
+        Цена: {{ item.price }}
+        </p>
+    {% endfor %}
+</div>
+</body>
+</html>
