@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+    Add pizza
+{% endblock %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input class="btn btn-info" type="submit" value="Добавить пиццу">
+    </form>
+{% endblock %}
+
 {% comment %}
 {% csrf_token %}
 <h1>template Django</h1>
@@ -32,14 +40,3 @@
 </div>
 
 {% endcomment %}
-
-<form method="post">
-    {% csrf_token %}
-<table>
-    {{ form}}
-</table>
-    <input type="submit" value="Добавить пиццу">
-</form>
-
-</body>
-</html>

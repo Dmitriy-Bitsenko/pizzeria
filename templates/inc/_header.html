@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<header class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a href="{% url 'index_pizza' %}" class="nav-link active" aria-current="page">Home page</a></li>
+        <li class="nav-item"><a href="{% url 'list_pizza' %}" class="nav-link">List of pizza</a></li>
+        <li class="nav-item"><a href="{% url 'add_pizza' %}" class="nav-link">Add of pizza</a></li>
+        {#        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>#}
+        {#        <li class="nav-item"><a href="#" class="nav-link">About</a></li>#}
+    </ul>
+</header>

@@ -1,15 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-{{ name }}<br>
-{{ description }}<br>
-{{ date_create }}<br>
-{{ date_update }}<br>
-{{ photo }}<br>
-{#{{ exist}}<br>#}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+{{ pizza_item.name }}
+{% endblock %}
+
+
+{% block content %}
+<p>Name: {{ pizza_item.name }}</p>
+<p>Description: {{ pizza_item.description }}</p>
+<p>Price: {{ pizza_item.price }}</p>
+<p>Date create: {{ pizza_item.date_create }}</p>
+<p>Date update: {{ pizza_item.date_update }}</p>
+<p>Photo: {{ pizza_item.photo }}</p>
+
+
+<a href="{% url 'list_pizza' %}" class="btn btn-warning">Назад</a>
+{% endblock %}

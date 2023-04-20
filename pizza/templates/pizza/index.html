@@ -1,35 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home page</title>
-</head>
-<body>
-{% csrf_token %}
-<h1>template Django</h1>
-<a href="/pizza/pizza_list/"><h1>List of the best pizzas</h1></a>
-<a href="/pizza/pizza_list/?id=2&name=PASTA"><h1>PASTA</h1></a>
+{% extends 'base.html' %}
 
-<div>
-    <p>Отправить данные на страницу пицц METHOD GET</p>
-<form action="/pizza/pizza_list/" method="get">
-    {% csrf_token %}
-    <label>ID</label> <input type="number" name="id" id="id" placeholder="поле id"><br>
-    <label>Name</label> <input type="text" name="id" id="name" placeholder="поле name"><br>
-    <input type="submit" value="Отправить данные">
-</form>
-</div>
-
-<div>
-    <p>Отправить данные на страницу пицц METHOD POST</p>
-<form action="/pizza/pizza_list/" method="post">
-    {% csrf_token %}
-    <label>ID</label> <input type="number" name="id" id="id" placeholder="поле id"><br>
-    <label>Name</label> <input type="text" name="id" id="name" placeholder="поле name"><br>
-    <input type="submit" value="Отправить данные">
-</form>
-</div>
+{% block title %}
+Pizza inc
+{% endblock %}
+{% block content %}
+<h1>Hello, template Django. I am a main page.</h1>
+    <br>
+<a class="btn btn-success" href="/pizza/pizza_list/"><h2>List of the best pizzas</h2></a><br>
+<br>
+<a class="btn btn-success" href="/pizza/pizza_list/?id=2&name=PASTA"><h2>PASTA</h2></a><br>
+<br>
+<a class="btn btn-success" href="/pizza/pizza_list/?id=2&name=PASTA"><h2>COFFEE</h2></a>
+{% endblock %}
 
 
-</body>
-</html>
+{#<div>#}
+{#    <p>Отправить данные на страницу пицц METHOD GET</p>#}
+{#<form action="/pizza/pizza_list/" method="get">#}
+{#    {% csrf_token %}#}
+{#    <label>ID</label> <input type="number" name="id" id="id" placeholder="поле id"><br>#}
+{#    <label>Name</label> <input type="text" name="id" id="name" placeholder="поле name"><br>#}
+{#    <input type="submit" value="Отправить данные">#}
+{#</form>#}
+{#</div>#}
+{##}
+{#<div>#}
+{#    <p>Отправить данные на страницу пицц METHOD POST</p>#}
+{#<form action="/pizza/pizza_list/" method="post">#}
+{#    {% csrf_token %}#}
+{#    <label>ID</label> <input type="number" name="id" id="id" placeholder="поле id"><br>#}
+{#    <label>Name</label> <input type="text" name="id" id="name" placeholder="поле name"><br>#}
+{#    <input type="submit" value="Отправить данные">#}
+{#</form>#}
+{#</div>#}

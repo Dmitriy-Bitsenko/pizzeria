@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-{% csrf_token %}
-<h1>List of pizzas</h1>
+{%  extends 'base.html' %}
 
-<a href="/pizza/pizza_add/">Добавить пиццу</a>
-<a href="/pizza/">Назад</a>
+{% block title %}
+    {{ title }}
+{% endblock %}
+{% block content %}
+    <div>
 
+        <h1>List of pizzas</h1>
+
+        <a class="btn btn-info" href="{% url 'add_pizza' %}">Добавить пиццу</a>
+        <a class="btn btn-info" href="{% url 'index_pizza' %}">Назад</a>
+        {% comment %}
 <div>
     {{ name }}
 </div>
@@ -24,14 +24,23 @@
     {{ pizza_one.name }}
 
 </div>
-
-<div>
-    {% for item in pizza_list %}
-        <p>
-        Наименование: {{ item.name }}<br>
-        Цена: {{ item.price }}
-        </p>
-    {% endfor %}
-</div>
-</body>
-</html>
+{% endcomment %}
+        <div>
+            {% for item in pizza_list %}
+                <div class="card" style="width: 18rem;">
+                    <img src= {{ item.photo }} class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name}}</h5>
+                        {# <p class="card-text">{{ item.description }}</p> #}
+                        <p class="card-text">{{ item.date_create|date:'Y-m-d'}}</p>
+                        <a href="{% url 'one_pizza' item.pk %}" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+                <p>
+                    Наименование: {{ item.name }}<br>
+                    Цена: {{ item.price }}
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,11 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Pizza
 
 from .forms import PizzaForm
-
 
 # Create your views here.
 
@@ -71,12 +70,31 @@ def pizza_add(request):
         context = dict()
         context['name'] = request.POST.get('name')
         context['description'] = request.POST.get('description')
+        context['price'] = request.POST.get('price')
         context['date_create'] = request.POST.get('date_create')
-        context['date_update'] = request.POST.get('name')
-        context['photo'] = request.POST.get('date_update')
+        context['date_update'] = request.POST.get('date_update')
+        context['photo'] = request.POST.get('photo')
         context['exist'] = request.POST.get('exist')
-        return render(request, 'pizza/pizza_info.html', context=context)
+
+        Pizza.objects.create(
+        name=context['name'],
+        price=context['price'],
+        description=context['description'],
+        date_create=context['date_create'],
+        date_update=context['date_update'],
+        photo=context['photo'],
+        )
+        #return render(request, 'pizza/pizza_info.html', context)
+        return HttpResponseRedirect('/pizza/pizza_list/')
     else:
         pizzaform = PizzaForm()
-        context = {'form': PizzaForm}
+        context = {'form': pizzaform}
     return render(request, 'pizza/pizza_add.html', context=context)
+
+
+def pizza_detail(request, pizza_id):
+    #pizza = Pizza.objects.get(pk=pizza_id)
+    pizza = get_object_or_404(Pizza, pk=pizza_id)
+    #context['pizza_item'] = pizza
+
+    return render(request, 'pizza/pizza_info.html', {'pizza_item': pizza})
