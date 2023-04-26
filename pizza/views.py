@@ -93,8 +93,8 @@ def pizza_add(request):
 
 
 def pizza_detail(request, pizza_id):
-    #pizza = Pizza.objects.get(pk=pizza_id)
+    #  pizza = Pizza.objects.get(pk=pizza_id)
     pizza = get_object_or_404(Pizza, pk=pizza_id)
-    #context['pizza_item'] = pizza
+    #  context['pizza_item'] = pizza
 
     return render(request, 'pizza/pizza_info.html', {'pizza_item': pizza})

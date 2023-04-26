@@ -9,3 +9,12 @@ class Pizza(models.Model):
     date_update = models.DateField(auto_now=True)
     photo = models.ImageField(upload_to='image%Y/%m/%d', null=False)
     exist = models.BooleanField(default=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:  # Class for model in admin panel
+        verbose_name = 'Pizza'
+        verbose_name_plural = 'Pizzas'  # Имя для приложения отображения
+        ordering = ['name']  # sort fields alphabetically if ['-name']
+
