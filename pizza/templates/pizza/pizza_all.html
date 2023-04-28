@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block link %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
-<link rel="stylesheet" href="{% static 'bootstrap/bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap-5.3.0-alpha3-dist/css/bootstrap.min.css' %}">
 
 {% endblock %}
 
@@ -34,7 +34,7 @@
 </div>
 {% endcomment %}
         <div>
-            {% for item in pizza_list %}
+            {% for item in page_obj %}
                 <div class="card" style="width: 18rem;">
                     {% if item.photo != '' %}
                         <img src=" {{ item.photo.url }}" class="card-img-top" alt="...">
@@ -53,6 +53,40 @@
                     Цена: {{ item.price }}
                 </p> -->
             {% endfor %}
+        </div>
+
+        <div class="container">
+            <div class="row align-items-center"></div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for page in page_obj.paginator.page_range %}
+                        {% if page_obj.number == page %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="#">{{ page }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                </ul>
+            </nav>
+
         </div>
     </div>
 {% endblock %}

@@ -6,6 +6,8 @@ from .models import Pizza
 
 from .forms import PizzaForm
 
+from django.core.paginator import Paginator
+
 # Create your views here.
 
 
@@ -29,7 +31,13 @@ def pizza_template(request):
     context = {'title': 'Pizzas'}
     pizzas = Pizza.objects.all()
 
-    context['pizza_list'] = pizzas
+    #context['pizza_list'] = pizzas
+
+    paginator = Paginator(pizzas, 2)
+    page_num = request.GET.get('page', 1)
+    page_objects = paginator.get_page(page_num)
+
+    context['page_obj'] = page_objects
 
     if request.method == 'GET':
         pizza_id = request.GET.get('id', 1)
