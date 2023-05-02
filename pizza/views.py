@@ -1,12 +1,18 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Pizza
 
-from .forms import PizzaForm
+from .forms import PizzaForm, RegistrationForm, LoginForm, ContactForm
+
+from django.contrib.auth import login, logout
 
 from django.core.paginator import Paginator
+
+from django.core.mail import send_mail, send_mass_mail
+
+from django.conf import settings
 
 # Create your views here.
 
@@ -85,12 +91,12 @@ def pizza_add(request):
         context['exist'] = request.POST.get('exist')
 
         Pizza.objects.create(
-        name=context['name'],
-        price=context['price'],
-        description=context['description'],
-        date_create=context['date_create'],
-        date_update=context['date_update'],
-        photo=context['photo'],
+            name=context['name'],
+            price=context['price'],
+            description=context['description'],
+            date_create=context['date_create'],
+            date_update=context['date_update'],
+            photo=context['photo'],
         )
         #return render(request, 'pizza/pizza_info.html', context)
         return HttpResponseRedirect('/pizza/pizza_list/')
@@ -106,3 +112,55 @@ def pizza_detail(request, pizza_id):
     #  context['pizza_item'] = pizza
 
     return render(request, 'pizza/pizza_info.html', {'pizza_item': pizza})
+
+
+def user_registration(request):
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            print(user)
+            return redirect('index_pizza')
+    else:
+        form = RegistrationForm()
+    return render(request, 'pizza/auth/registration.html', {'form': form})
+
+
+def user_login(request):
+    if request.method == "POST":
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            print('is_anon', request.user.is_anonymous)
+            print('is_auth', request.user.is_authenticated)
+            login(request, user)
+            print('is_anon', request.user.is_anonymous)
+            print('is_auth', request.user.is_authenticated)
+            print(user)
+            return redirect('index_pizza')
+    else:
+        form = LoginForm()
+    return render(request, 'pizza/auth/login.html', {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('log in')
+
+
+def contact_email(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            mail = send_mail(
+                form.cleaned_data['subject'],
+                form.cleaned_data['content'],
+                settings.EMAIL_HOST_USER,
+                ['google@google.com'],
+                fail_silently=False
+            )
+            if mail:
+                return redirect('index_pizza')
+    else:
+        form = ContactForm()
+    return render(request, 'pizza/email.html', {'form': form})

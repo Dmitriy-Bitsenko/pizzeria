@@ -3,7 +3,13 @@
         <li class="nav-item"><a href="{% url 'index_pizza' %}" class="nav-link active" aria-current="page">На главную</a></li>
         <li class="nav-item"><a href="{% url 'list_pizza' %}" class="nav-link">Вкуснейшие пиццы</a></li>
         <li class="nav-item"><a href="{% url 'add_pizza' %}" class="nav-link">Добавить пиццу</a></li>
-        {#        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>#}
-        {#        <li class="nav-item"><a href="#" class="nav-link">About</a></li>#}
+        <li class="nav-item"><a href="{% url 'contact_email' %}" class="nav-link">Отправить письмо</a></li>
+
+        {% if request.user.is_anonymous %}
+            <li class="nav-item"><a href="{% url 'log in' %}" class="nav-link">Авторизация</a></li>
+            <li class="nav-item"><a href="{% url 'regis' %}" class="nav-link">Регистрация</a></li>
+        {% else %}
+            <li class="nav-item"><a href="{% url 'log out' %}" class="nav-link">Выйти</a></li>
+        {% endif %}
     </ul>
 </header>
