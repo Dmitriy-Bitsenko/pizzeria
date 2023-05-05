@@ -14,8 +14,8 @@
 {% block content %}
     <div>
 
-        <h1>List of pizzas</h1>
-
+        <h1>Список вкуснейших пицц</h1>
+{% comment %}
         <a class="btn btn-info" href="{% url 'add_pizza' %}">Добавить пиццу</a>
         <a class="btn btn-info" href="{% url 'index_pizza' %}">Назад</a>
         {% comment %}
@@ -33,6 +33,7 @@
 
 </div>
 {% endcomment %}
+        <div class="d-flex justify-content-center py-3">
         <div>
             {% for item in page_obj %}
                 <div class="card" style="width: 18rem;">
@@ -48,10 +49,7 @@
                         <a href="{% url 'one_pizza' item.pk %}" class="btn btn-primary">Подробнее</a>
                     </div>
                 </div>
-                <!-- <p>
-                    Наименование: {{ item.name }}<br>
-                    Цена: {{ item.price }}
-                </p> -->
+                </div>
             {% endfor %}
         </div>
 

@@ -1,15 +1,15 @@
 <header class="d-flex justify-content-center py-3">
     <ul class="nav nav-pills">
-        <li class="nav-item"><a href="{% url 'index_pizza' %}" class="nav-link active" aria-current="page">На главную</a></li>
-        <li class="nav-item"><a href="{% url 'list_pizza' %}" class="nav-link">Вкуснейшие пиццы</a></li>
-        <li class="nav-item"><a href="{% url 'add_pizza' %}" class="nav-link">Добавить пиццу</a></li>
-        <li class="nav-item"><a href="{% url 'contact_email' %}" class="nav-link">Отправить письмо</a></li>
+        <li class="nav-item"><a href="{% url 'index_pizza' %}" class="btn btn-light" aria-current="page"><b>На главную</b></a></li>
+        <li class="nav-item"><a href="{% url 'list_pizza' %}" class="btn btn-light"><b>Вкуснейшие пиццы</b></a></li>
+        <li class="nav-item"><a href="{% url 'add_pizza' %}" class="btn btn-light"><b>Добавить пиццу</b></a></li>
+        <li class="nav-item"><a href="{% url 'contact_email' %}" class="btn btn-light"><b>Отправить письмо</b></a></li>
 
         {% if request.user.is_anonymous %}
-            <li class="nav-item"><a href="{% url 'log in' %}" class="nav-link">Авторизация</a></li>
-            <li class="nav-item"><a href="{% url 'regis' %}" class="nav-link">Регистрация</a></li>
+            <li class="nav-item"><a href="{% url 'log in' %}" class="btn btn-light"><b>Авторизация</b></a></li>
+            <li class="nav-item"><a href="{% url 'regis' %}" class="btn btn-light"><b>Регистрация</b></a></li>
         {% else %}
-            <li class="nav-item"><a href="{% url 'log out' %}" class="nav-link">Выйти</a></li>
+            <li class="nav-item"><a href="{% url 'log out' %}" class="nav-link"><b>Выйти</a></li>
         {% endif %}
     </ul>
 </header>

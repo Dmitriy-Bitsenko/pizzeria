@@ -29,6 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('pizza/', include('pizza.urls')),
     path('pizza/pizza_list/', pizza_list),
+    path('basket/', include('basket.urls')),
 ]
 
 if settings.DEBUG:

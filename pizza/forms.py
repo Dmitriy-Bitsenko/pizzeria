@@ -1,8 +1,15 @@
 from django import forms
+from django.contrib.auth.decorators import permission_required
 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from django.contrib.auth.models import User
+
+from django.utils.decorators import method_decorator
+
+from django.views.generic import UpdateView
+
+from pizza.models import Pizza
 
 
 class PizzaForm(forms.Form):
@@ -44,7 +51,7 @@ class LoginForm(AuthenticationForm):
         widget=forms.TextInput(attrs={'class': 'form-control', }),
         min_length=2,
     )
-    password1 = forms.CharField(
+    password = forms.CharField(
         label="Введите пароль",
         widget=forms.PasswordInput(attrs={'class': 'form-control', }),
     )
@@ -64,3 +71,6 @@ class ContactForm(forms.Form):
                     'rows': 11, },
         )
     )
+
+
+

@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pizza.apps.PizzaConfig'
+    'pizza.apps.PizzaConfig',
+    'basket',
+
 ]
 
 MIDDLEWARE = [
@@ -141,7 +143,10 @@ MEDIA_URL = '/media/'
 
 EMAIL_HOST_USER = 'bitsenko@inbox.ru'
 EMAIL_HOST_PASSWORD = 'oie4r49mKLKG9kkhdwv'
-EMAIL_HOST = 'smtp.mai.ru'
+EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 354
 EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+BASKET_SESSION_ID = 'basket'

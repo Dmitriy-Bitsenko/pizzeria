@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from django.http import HttpResponse, HttpResponseRedirect
+from django.utils.decorators import method_decorator
 
 from .models import Pizza
 
@@ -13,6 +15,10 @@ from django.core.paginator import Paginator
 from django.core.mail import send_mail, send_mass_mail
 
 from django.conf import settings
+
+from basket.forms import BasketAddProductForm
+
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 # Create your views here.
 
@@ -109,9 +115,10 @@ def pizza_add(request):
 def pizza_detail(request, pizza_id):
     #  pizza = Pizza.objects.get(pk=pizza_id)
     pizza = get_object_or_404(Pizza, pk=pizza_id)
+    basket_form = BasketAddProductForm()
     #  context['pizza_item'] = pizza
 
-    return render(request, 'pizza/pizza_info.html', {'pizza_item': pizza})
+    return render(request, 'pizza/pizza_info.html', {'pizza_item': pizza, 'basket_form': basket_form})
 
 
 def user_registration(request):
@@ -164,3 +171,4 @@ def contact_email(request):
     else:
         form = ContactForm()
     return render(request, 'pizza/email.html', {'form': form})
+
