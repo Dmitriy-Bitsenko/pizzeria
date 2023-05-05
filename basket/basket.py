@@ -1,4 +1,5 @@
 from django.conf import settings
+
 from pizza.models import Pizza
 
 
@@ -20,7 +21,7 @@ class Basket:
         if prod_pk not in self.basket:
             self.basket[prod_pk] = {
                 'count_prod': 0,
-                'price': str(product.price)
+                'price_prod': str(product.price)
             }
 
         if update_count:
@@ -45,7 +46,7 @@ class Basket:
         self.session.modified = True
 
     def __len__(self):
-        return sum(float(item['price_prod']) for item in self.basket.values())
+        return sum(int(item['count_prod']) for item in self.basket.values())
 
     def __iter__(self):
         list_prod_pk = self.basket.keys()

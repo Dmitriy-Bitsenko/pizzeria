@@ -32,16 +32,16 @@
                         </td>
                         <td>
                             {% if product_obj.photo != '' %}
-                                <img src=" {{ item.photo.url }}" class="card-img-top" alt="...">
+                                <img src=" {{ product_obj.photo.url }}" class="card-img-top" alt="...">
                             {% else %}
                                 <img src=" {% static "/image/Ooops.jpeg" %}" class="card-img-top" alt="...">
                             {% endif %}
                         </td>
                         <td>
-                            {{ item.count.prod }}
+                            {{ item.count_prod }}
                         </td>
                         <td>
-                            {{ item.price.prod }}
+                            {{ item.price_prod }}
                         </td>
                         <td>
                             {{ item.total_price }}
@@ -56,7 +56,7 @@
             <tr>
                 <td>Всего:</td>
                 <td colspan="4"></td>
-                <td>{{ basket.get_total_price}}</td>
+                <td>{{ basket.get_total_price }}</td>
             </tr>
             </tbody>
         </table>
