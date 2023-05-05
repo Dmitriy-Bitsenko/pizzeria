@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+
+    Корзина
+
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Пицца</th>
+                <th scope="col">Фото</th>
+                <th scope="col">Количество</th>
+                <th scope="col">Цена за штуку</th>
+                <th scope="col">Общая стоимость</th>
+                <th scope="col">Удалить</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in basket %}
+                {% with product_obj=item.pizza %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'one_pizza' product_obj.pk %}">
+                                {{ product_obj.name }}
+                            </a>
+                        </td>
+                        <td>
+                            {% if product_obj.photo != '' %}
+                                <img src=" {{ item.photo.url }}" class="card-img-top" alt="...">
+                            {% else %}
+                                <img src=" {% static "/image/Ooops.jpeg" %}" class="card-img-top" alt="...">
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ item.count.prod }}
+                        </td>
+                        <td>
+                            {{ item.price.prod }}
+                        </td>
+                        <td>
+                            {{ item.total_price }}
+                        </td>
+                        <td>
+                            <a href="{% url 'remove_basket_prod' product_obj.pk %}">Удалить</a>
+                        </td>
+                    </tr>
+                {% endwith %}
+
+            {% endfor %}
+            <tr>
+                <td>Всего:</td>
+                <td colspan="4"></td>
+                <td>{{ basket.get_total_price}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <a href="{% url 'list_pizza' %}" class="btn btn-success">Посмотреть ещё</a>
+            <a href="{% url 'clear_basket_prod' %}" class="btn btn-danger">Очистить корзину</a>
+            <a href="" class="btn btn-success">Заглушка</a>
+        </div>
+    </div>
+{% endblock %}
