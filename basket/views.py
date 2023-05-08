@@ -39,8 +39,3 @@ def basket_clear(request):
     return redirect('list_pizza')
 
 
-
-
-
-
-# Create your views here.

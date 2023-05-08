@@ -14,6 +14,7 @@ urlpatterns = [
     path('login/', user_login, name='log in'),
     path('logout/', user_logout, name='log out'),
     path('email/', contact_email, name='contact_email'),
-
+    path('pizza_edit/<int:pk>/', PizzaUpdateView.as_view(), name='pizza_edit'),
+    path('pizza_delete/<int:pk>/', PizzaDeleteView.as_view(), name='pizza_delete'),
 
 ]

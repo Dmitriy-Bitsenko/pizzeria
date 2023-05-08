@@ -172,3 +172,14 @@ def contact_email(request):
         form = ContactForm()
     return render(request, 'pizza/email.html', {'form': form})
 
+
+class PizzaUpdateView(UpdateView):
+    model = Pizza
+    template_name = 'pizza/pizza_edit.html'
+    context_object_name = 'form'
+    fields = ['name', 'description', 'price', 'photo']
+
+
+class PizzaDeleteView(DeleteView):
+    model = Pizza
+    template_name = 'pizza/pizza_delete.html'

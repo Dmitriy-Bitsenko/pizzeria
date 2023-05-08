@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.urls import reverse
+
 
 class Pizza(models.Model):
     name = models.CharField(default='pizza', max_length=100, verbose_name='Название')
@@ -13,9 +15,10 @@ class Pizza(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('list_pizza', kwargs={'one_pizza': self.pk})
+
     class Meta:  # Class for model in admin panel
-        verbose_name = 'Pizza'
-        verbose_name_plural = 'Pizzas'  # Имя для приложения отображения
+        verbose_name = 'Пицца'
+        verbose_name_plural = 'Пиццы'  # Имя для приложения отображения
         ordering = ['name']  # sort fields alphabetically if ['-name']
-
-

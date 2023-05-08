@@ -15,24 +15,7 @@
     <div>
 
         <h1>Список вкуснейших пицц</h1>
-{% comment %}
-        <a class="btn btn-info" href="{% url 'add_pizza' %}">Добавить пиццу</a>
-        <a class="btn btn-info" href="{% url 'index_pizza' %}">Назад</a>
-        {% comment %}
-<div>
-    {{ name }}
-</div>
 
-
-<p>
-    {{ pizza_list }}
-</p>
-
-<div>
-    {{ pizza_one.name }}
-
-</div>
-{% endcomment %}
         <div class="d-flex justify-content-center py-3">
         <div>
             {% for item in page_obj %}
