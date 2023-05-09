@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import permission_required
+
 from django.shortcuts import render, get_object_or_404, redirect
 
 from django.http import HttpResponse, HttpResponseRedirect
+
 from django.utils.decorators import method_decorator
 
 from .models import Pizza
@@ -19,6 +21,18 @@ from django.conf import settings
 from basket.forms import BasketAddProductForm
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
+from django.http import JsonResponse
+
+from .serializers import PizzaSerializer
+
+from rest_framework import status
+
+from rest_framework.response import Response
+
+from rest_framework.decorators import api_view
+
+from rest_framework import viewsets
 
 # Create your views here.
 
@@ -183,3 +197,37 @@ class PizzaUpdateView(UpdateView):
 class PizzaDeleteView(DeleteView):
     model = Pizza
     template_name = 'pizza/pizza_delete.html'
+
+
+@api_view(['GET', 'POST'])
+def pizza_api_list(request):
+    if request.method == 'GET':
+        pizza_list = Pizza.objects.all()
+        serializer = PizzaSerializer(pizza_list, many=True)
+        return Response({'pizza_list': serializer.data})
+    elif request.method == 'POST':
+        serializer = PizzaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def pizza_api_detail(request, pk, format=None):
+    pizza_object = get_object_or_404(Pizza, pk=pk)
+    if pizza_object.exist:
+        if request.method == 'GET':
+            serializer = PizzaSerializer(pizza_object)
+            return Response(serializer.data)
+        elif request.method == 'PUT':
+            serializer = PizzaSerializer(pizza_object, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'message': 'Данные обновлены', 'pizza': serializer.data})
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.method == 'DELETE':
+            pizza_object.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)

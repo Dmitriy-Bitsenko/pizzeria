@@ -16,5 +16,7 @@ urlpatterns = [
     path('email/', contact_email, name='contact_email'),
     path('pizza_edit/<int:pk>/', PizzaUpdateView.as_view(), name='pizza_edit'),
     path('pizza_delete/<int:pk>/', PizzaDeleteView.as_view(), name='pizza_delete'),
+    path('api/list', pizza_api_list, name='pizza_api_list'),
+    path('api/detail/<int:pk>', pizza_api_detail, name='pizza_api_detail'),
 
 ]

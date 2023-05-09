@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pizza.apps.PizzaConfig',
     'basket',
+    'rest_framework',
 
 ]
 

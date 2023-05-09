@@ -5,15 +5,16 @@
 {% endblock %}
 
 {% block content %}
+    <div class="d-flex justify-content-center py-3">
     <form method="post">
         {% csrf_token %}
         <table>
             <p><h2><b> Вы уверены что хотите удалить пиццу? </b></h2></p> {{ form.as_table }}
         </table>
         <input class="btn btn-danger" type="submit" value="Удалить">
+            <a class="btn btn-secondary" href="{% url 'list_pizza' %}">Назад</a>
         <br>
     </form>
-<br>
-    <a class="btn btn-secondary" href="{% url 'list_pizza' %}">Назад</a>
+        </div>
 
 {% endblock %}
