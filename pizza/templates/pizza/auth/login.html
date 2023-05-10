@@ -9,10 +9,11 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_div}}
-            <input type="submit" class="btn btn-primary" value="Войти">
+            <input type="submit" class="btn btn-success" value="Войти">
         </form>
-
+<br>
+        <br>
         <a class="btn btn-warning" href="{% url 'regis' %}">Зарегистрироваться</a>
-        <a class="btn btn-warning" href="{% url 'index_pizza' %}">Назад</a>
+        <a class="btn btn-secondary" href="{% url 'index_pizza' %}">Назад</a>
     </div>
 {% endblock %}

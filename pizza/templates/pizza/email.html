@@ -15,8 +15,9 @@
             {{ form.content.label}}
             {{ form.subject}}
 
-            <input type="submit" class="btn btn-primary" value="Отправить">
+            <input type="submit" class="btn btn-success" value="Отправить">
         </form>
-        <a class="btn btn-warning" href="{% url 'index_pizza' %}">Назад</a>
+        <br>
+        <a class="btn btn-secondary" href="{% url 'index_pizza' %}">Назад</a>
     </div>
 {% endblock %}
