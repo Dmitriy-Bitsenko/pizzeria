@@ -1,10 +1,10 @@
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required, login_required
+
+from django.utils.decorators import method_decorator
 
 from django.shortcuts import render, get_object_or_404, redirect
 
 from django.http import HttpResponse, HttpResponseRedirect
-
-from django.utils.decorators import method_decorator
 
 from .models import Pizza
 
@@ -56,9 +56,6 @@ def index_template(request):
 def pizza_template(request):
     context = {'title': 'Pizzas'}
     pizzas = Pizza.objects.all()
-
-    #context['pizza_list'] = pizzas
-
     paginator = Paginator(pizzas, 2)
     page_num = request.GET.get('page', 1)
     page_objects = paginator.get_page(page_num)
@@ -85,13 +82,6 @@ def pizza_template(request):
             context['pizza_one'] = pizza_one
         context['name'] = request.POST.get('name')
 
-    # context = {
-    #     'title': 'Pizzas',
-    #     'pizza_list': pizzas,
-    #     'pizza_one': pizza_one,
-    #     'name': name,
-    # }
-
     return render(
         request=request,
         template_name='pizza/pizza_all.html',
@@ -99,6 +89,7 @@ def pizza_template(request):
     )
 
 
+@permission_required('pizza.add_pizza')
 def pizza_add(request):
     if request.method == 'POST':
         context = dict()
@@ -118,7 +109,6 @@ def pizza_add(request):
             date_update=context['date_update'],
             photo=context['photo'],
         )
-        #return render(request, 'pizza/pizza_info.html', context)
         return HttpResponseRedirect('/pizza/pizza_list/')
     else:
         pizzaform = PizzaForm()
@@ -126,11 +116,10 @@ def pizza_add(request):
     return render(request, 'pizza/pizza_add.html', context=context)
 
 
+@login_required
 def pizza_detail(request, pizza_id):
-    #  pizza = Pizza.objects.get(pk=pizza_id)
     pizza = get_object_or_404(Pizza, pk=pizza_id)
     basket_form = BasketAddProductForm()
-    #  context['pizza_item'] = pizza
 
     return render(request, 'pizza/pizza_info.html', {'pizza_item': pizza, 'basket_form': basket_form})
 
@@ -193,10 +182,18 @@ class PizzaUpdateView(UpdateView):
     context_object_name = 'form'
     fields = ['name', 'description', 'price', 'photo']
 
+    @method_decorator(permission_required('pizza.change_pizza'))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
 
 class PizzaDeleteView(DeleteView):
     model = Pizza
     template_name = 'pizza/pizza_delete.html'
+
+    @method_decorator(permission_required('pizza.delete_pizza'))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 @api_view(['GET', 'POST'])

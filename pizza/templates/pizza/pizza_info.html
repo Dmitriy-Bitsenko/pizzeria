@@ -18,10 +18,16 @@
         {{ basket_form }}
         <input type="submit" class="btn btn-success" value="Добавить в корзину">
     </form>
-
     </div>
 
+
 <a href="{% url 'list_pizza' %}" class="btn btn-secondary">Назад</a>
+
+    {% if perms.pizza.change_pizza %}
+
 <a href="{% url 'pizza_delete' pizza_item.pk %}" class="btn btn-danger">Удалить</a>
 <a href="{% url 'pizza_edit' pizza_item.pk %}" class="btn btn-danger">Изменить пиццу</a>
+
+    {% endif %}
+
 {% endblock %}
