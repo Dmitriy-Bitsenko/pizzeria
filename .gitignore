@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Virtual env
+.venv/
+venv/
+
+# Database
+db.sqlite3
+
+# Coverage
+.coverage
+.mypy_cache/
+.pytest_cache/
+
+# Media
+media/
+
+# Документация
+АНАЛИЗ_ПРОЕКТА.md
